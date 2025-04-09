@@ -2,7 +2,7 @@ name: .NET Core
 
 on:
   push:
-    branches: [ "main", "develop", "feature/TURIS18/zhuiko" ]
+    branches: [ "main", "develop", "feature/**" ]
 env:
   IMAGE_NAME: "snezhanazh/turis_places"
   
