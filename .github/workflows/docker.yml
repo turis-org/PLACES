@@ -25,13 +25,13 @@ jobs:
         - name: Run unit tests with results
           run: |
             cd Turis
-            dotnet test --configuration Release --no-restore --logger "trx;LogFileName=unit_tests.trx" --results-directory ${{ env.TEST_RESULTS_DIR }}
-
+            dotnet test --logger trx --results-directory ${{ env.TEST_RESULTS_DIR }}
+            
         - name: Publish test results
           uses: actions/upload-artifact@v4
           with:
             name: unit-test-results
-            path: ${{ env.TEST_RESULTS_DIR }}/**/*.trx
+            path: ${{ env.TEST_RESULTS_DIR }}
   build-and-push:
     needs: test
     runs-on: ubuntu-latest
