@@ -9,7 +9,7 @@
     }
   },
   "release": {
-    "branches": [ "master", "develop", "feature/TURIS18/zhuiko" ],
+    "branches": [ "main", "develop", "feature/TURIS18/zhuiko" ],
     "plugins": [
       "@semantic-release/commit-analyzer",
       "@semantic-release/release-notes-generator",
