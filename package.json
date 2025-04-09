@@ -9,7 +9,11 @@
     }
   },
   "release": {
-    "branches": [ "main", "develop", "(feature/**)" ],
+    "branches": [ "main", "develop", 
+    {
+      "name": "feature/**",
+      "prerelease": "${name.split('/').slice(0, 2).join('-').toLowerCase()}"
+    }],
     "plugins": [
       "@semantic-release/commit-analyzer",
       "@semantic-release/release-notes-generator",
