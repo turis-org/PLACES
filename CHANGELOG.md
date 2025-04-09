@@ -1,3 +1,10 @@
+# [1.1.0-feature-turis19.1](https://github.com/turis-org/PLACES/compare/v1.0.0...v1.1.0-feature-turis19.1) (2025-04-09)
+
+
+### Features
+
+* added tests ([3ea3f2d](https://github.com/turis-org/PLACES/commit/3ea3f2d42329469d86de06eecfbdb1aa1b615fd4))
+
 # 1.0.0 (2025-04-09)
 
 
