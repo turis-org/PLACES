@@ -26,7 +26,7 @@ jobs:
           run: dotnet test --configuration Release --no-restore --logger "trx;LogFileName=unit_tests.trx" --results-directory ${{ env.TEST_RESULTS_DIR }}
 
         - name: Publish test results
-          uses: actions/upload-artifact@v3
+          uses: actions/upload-artifact@v4
           with:
             name: unit-test-results
             path: ${{ env.TEST_RESULTS_DIR }}/**/*.trx
