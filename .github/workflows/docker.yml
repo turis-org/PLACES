@@ -5,8 +5,31 @@ on:
     branches: [ "main", "develop", "feature/**" ]
 env:
   IMAGE_NAME: "snezhanazh/turis_places"
+  TEST_RESULTS_DIR: "test-results"
   
 jobs:
+  test:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v4
+  
+        - name: Setup .NET
+          uses: actions/setup-dotnet@v4
+          with:
+            dotnet-version: '8.0.x'
+  
+        - name: Create results directory
+          run: mkdir -p ${{ env.TEST_RESULTS_DIR }}
+
+        - name: Run unit tests with results
+          run: dotnet test --configuration Release --no-restore --logger "trx;LogFileName=unit_tests.trx" --results-directory ${{ env.TEST_RESULTS_DIR }}
+
+        - name: Publish test results
+          uses: actions/upload-artifact@v3
+          with:
+            name: unit-test-results
+            path: ${{ env.TEST_RESULTS_DIR }}/**/*.trx
   build-and-push:
     runs-on: ubuntu-latest
     steps:
