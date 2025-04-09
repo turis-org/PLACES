@@ -9,6 +9,7 @@ using Turis.Sights;
 using System.Text;
 using System.Net;
 using System.Numerics;
+using DotNetEnv;
 class Program
 {
     private static async void HttpHandler(HttpListenerContext context, HttpClient httpClient, Config config)
@@ -98,13 +99,19 @@ class Program
     {
         try
         {
-            string json_config = File.ReadAllText("secrets.json");
-            Config? config = JsonSerializer.Deserialize<Config>(json_config);
-            if (config == null)
+            Env.Load();
+            string? location_api_key = Environment.GetEnvironmentVariable("LOCATION_API_KEY") ?? Env.GetString("LOCATION_API_KEY");
+            string? places_api_key = Environment.GetEnvironmentVariable("PLACES_API_KEY") ?? Env.GetString("PLACES_API_KEY");
+
+            if (location_api_key == null || places_api_key == null)
             {
-                Console.WriteLine("Config file is NULL");
+                Console.WriteLine("api keys - NULL");
                 return;
             }
+
+            Config config = new Config();
+            config.location_api_key = location_api_key;
+            config.places_api_key = places_api_key;
 
             string server_config = File.ReadAllText("server_config.json");
             ServerConfig? serverConfig = JsonSerializer.Deserialize<ServerConfig>(server_config);
@@ -136,6 +143,10 @@ class Program
         catch (IOException ex)
         {
             Console.WriteLine("Ошибка чтения файла конфигурации. " + ex.Message);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.ToString());
         }
     }
 }
