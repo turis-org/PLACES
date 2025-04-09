@@ -23,7 +23,9 @@ jobs:
           run: mkdir -p ${{ env.TEST_RESULTS_DIR }}
 
         - name: Run unit tests with results
-          run: dotnet test --configuration Release --no-restore --logger "trx;LogFileName=unit_tests.trx" --results-directory ${{ env.TEST_RESULTS_DIR }}
+          run: |
+            cd Turis
+            dotnet test --configuration Release --no-restore --logger "trx;LogFileName=unit_tests.trx" --results-directory ${{ env.TEST_RESULTS_DIR }}
 
         - name: Publish test results
           uses: actions/upload-artifact@v4
@@ -31,6 +33,7 @@ jobs:
             name: unit-test-results
             path: ${{ env.TEST_RESULTS_DIR }}/**/*.trx
   build-and-push:
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -55,6 +58,7 @@ jobs:
             ${{ env.IMAGE_NAME }}:latest
             ${{ env.IMAGE_NAME }}:${{ github.sha }}
   release:
+    needs: build-and-push:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
