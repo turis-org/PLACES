@@ -23,9 +23,15 @@ jobs:
           run: mkdir -p ${{ env.TEST_RESULTS_DIR }}
 
         - name: Run unit tests with results
+          env:
+            PLACES_API_KEY: ${{ secrets.PLACES_API_KEY }}
+            LOCATION_API_KEY: ${{ secrets.LOCATION_API_KEY }}
+            HOST: "localhost"
+            PORT: "8080"
           run: |
             cd Turis
             dotnet test --logger trx --results-directory ${{ env.TEST_RESULTS_DIR }}
+            cd ..
             
         - name: Publish test results
           uses: actions/upload-artifact@v4
