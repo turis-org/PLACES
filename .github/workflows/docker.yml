@@ -41,12 +41,14 @@ jobs:
       - name: Build and analyze
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          LOCATION_API_KEY: ${{ secrets.LOCATION_API_KEY }}
+          PLACES_API_KEY: ${{ secrets.PLACES_API_KEY }}
         shell: powershell
         run: |
           dotnet tool install --global dotnet-coverage
-          .\.sonar\scanner\dotnet-sonarscanner begin /k:"turis-org_PLACES" /o:"turis-org" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml /d:sonar.host.url="https://sonarcloud.io"
+          .\.sonar\scanner\dotnet-sonarscanner begin /k:"turis-org_PLACES" /o:"turis-org" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml /d:sonar.scanner.scanAll=false /d:sonar.host.url="https://sonarcloud.io"
           dotnet build
-          dotnet-coverage collect "dotnet test" -f xml -o "coverage.xml" --environment-variables "LOCATION_API_KEY=${{ secrets.LOCATION_API_KEY }},PLACES_API_KEY=${{ secrets.PLACES_API_KEY }}"
+          dotnet-coverage collect "dotnet test" -f xml -o "coverage.xml"
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
   build-and-push:
     needs: sonar-scan
