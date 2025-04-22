@@ -1,3 +1,10 @@
+# [1.2.0-feature-turis20.1](https://github.com/turis-org/PLACES/compare/v1.1.0...v1.2.0-feature-turis20.1) (2025-04-22)
+
+
+### Features
+
+* added sonar ([7cfb973](https://github.com/turis-org/PLACES/commit/7cfb9738a7b51cf7e3284393ce12c08862f545f6))
+
 # [1.1.0](https://github.com/turis-org/PLACES/compare/v1.0.0...v1.1.0) (2025-04-09)
 
 

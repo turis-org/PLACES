@@ -8,38 +8,49 @@ env:
   TEST_RESULTS_DIR: "test-results"
   
 jobs:
-  test:
-      runs-on: ubuntu-latest
-      steps:
-        - name: Checkout code
-          uses: actions/checkout@v4
-  
-        - name: Setup .NET
-          uses: actions/setup-dotnet@v4
-          with:
-            dotnet-version: '8.0.x'
-  
-        - name: Create results directory
-          run: mkdir -p ${{ env.TEST_RESULTS_DIR }}
-
-        - name: Run unit tests with results
-          env:
-            PLACES_API_KEY: ${{ secrets.PLACES_API_KEY }}
-            LOCATION_API_KEY: ${{ secrets.LOCATION_API_KEY }}
-            HOST: "localhost"
-            PORT: "8080"
-          run: |
-            cd Turis
-            dotnet test --logger trx --results-directory ${{ env.TEST_RESULTS_DIR }}
-            cd ..
-            
-        - name: Publish test results
-          uses: actions/upload-artifact@v4
-          with:
-            name: unit-test-results
-            path: ${{ env.TEST_RESULTS_DIR }}
+  sonar-scan:
+    name: Build and analyze
+    runs-on: windows-latest
+    steps:
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: 17
+          distribution: 'zulu' # Alternative distribution options are available.
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      - name: Cache SonarQube Cloud packages
+        uses: actions/cache@v4
+        with:
+          path: ~\sonar\cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+      - name: Cache SonarQube Cloud scanner
+        id: cache-sonar-scanner
+        uses: actions/cache@v4
+        with:
+          path: .\.sonar\scanner
+          key: ${{ runner.os }}-sonar-scanner
+          restore-keys: ${{ runner.os }}-sonar-scanner
+      - name: Install SonarQube Cloud scanner
+        if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
+        shell: powershell
+        run: |
+          New-Item -Path .\.sonar\scanner -ItemType Directory
+          dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
+      - name: Build and analyze
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        shell: powershell
+        run: |
+          dotnet tool install --global dotnet-coverage
+          .\.sonar\scanner\dotnet-sonarscanner begin /k:"turis-org_PLACES" /o:"turis-org" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml /d:sonar.host.url="https://sonarcloud.io"
+          dotnet build
+          dotnet-coverage collect "dotnet test" -f xml -o "coverage.xml"
+          .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
   build-and-push:
-    needs: test
+    needs: sonar-scan
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code

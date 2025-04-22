@@ -3,12 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Turis", "Turis.csproj", "{4CD84B7F-782B-46CC-9C94-C1844165FBCC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Turis", "Turis\Turis.csproj", "{4CD84B7F-782B-46CC-9C94-C1844165FBCC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Элементы решения", "Элементы решения", "{3A812F4D-6A45-4280-8966-26B5A5073205}"
 	ProjectSection(SolutionItems) = preProject
 		server_config.json = server_config.json
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestsTuris", "TestsTuris\TestsTuris.csproj", "{FF17CADD-8D17-40A9-9E90-125AB6CEEAEC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,6 +22,10 @@ Global
 		{4CD84B7F-782B-46CC-9C94-C1844165FBCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4CD84B7F-782B-46CC-9C94-C1844165FBCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4CD84B7F-782B-46CC-9C94-C1844165FBCC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF17CADD-8D17-40A9-9E90-125AB6CEEAEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF17CADD-8D17-40A9-9E90-125AB6CEEAEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF17CADD-8D17-40A9-9E90-125AB6CEEAEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF17CADD-8D17-40A9-9E90-125AB6CEEAEC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
