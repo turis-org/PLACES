@@ -49,7 +49,7 @@ jobs:
           dotnet build
           dotnet-coverage collect "dotnet test" -f xml -o "coverage.xml"
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
-    build-and-push:
+  build-and-push:
     needs: sonar-scan
     runs-on: ubuntu-latest
     steps:
