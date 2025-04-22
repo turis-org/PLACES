@@ -1,0 +1,14 @@
+﻿# Сборка
+bin/
+obj/
+*.dll
+*.exe
+*.pdb
+
+# NuGet
+packages/
+.nuget/
+
+# Секреты
+secrets.json
+.env
