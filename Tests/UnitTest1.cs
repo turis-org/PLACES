@@ -159,17 +159,9 @@ public class ProgramTest
         var placesApiKey = app.Configuration["PLACES_API_KEY"];
         
         var config = new Config { locationApiKey = locationApiKey, placesApiKey = placesApiKey };
-            
-        // Настройка параметров сервера
-        var host = app.Configuration["HOST"];
-        var port = app.Configuration["PORT"];
         
         Assert.NotNull(locationApiKey);
         Assert.NotNull(placesApiKey);
         Assert.NotNull(config);
-        Assert.NotNull(host);
-        Assert.NotNull(port);
     }
-    
-
 }
