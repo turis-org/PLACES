@@ -1,3 +1,11 @@
+# [1.3.0](https://github.com/turis-org/PLACES/compare/v1.2.0...v1.3.0) (2025-04-23)
+
+
+### Features
+
+* add logger ([edb38dc](https://github.com/turis-org/PLACES/commit/edb38dced507c22720bcc08c0307af506cedd5b0))
+* update program ([4e2c0e2](https://github.com/turis-org/PLACES/commit/4e2c0e29ec76587cbe548554e0402c9e46bd0365))
+
 # [1.3.0-feature-turis21.1](https://github.com/turis-org/PLACES/compare/v1.2.0...v1.3.0-feature-turis21.1) (2025-04-23)
 
 
