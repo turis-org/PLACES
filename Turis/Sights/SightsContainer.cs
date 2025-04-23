@@ -1,13 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Turis.Sights
+﻿namespace Turis.Sights;
+public record SightsContainer
 {
-    public class SightsContainer
-    {
-        public Sight[]? features { get; set; }
-    }
+    public Sight[]? features { get; set; }
 }
