@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Turis
+﻿namespace Turis;
+public record ServerConfig
 {
-    public class ServerConfig
-    {
-        public string? host { get; set; }
-        public string? port { get; set; }
-    }
+    public string? host { get; set; }
+    public string? port { get; set; }
 }
